@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import "./rain.css"; // 비 효과를 위한 CSS 파일 추가
 import "./background.css"; // 배경 그라데이션 효과 추가
+import Image from "next/image";
+import Navbar from "../../../components/temp/navbar";
 
 const makeItRain = () => {
 	const rainFront = document.querySelector(".rain.front-row");
@@ -41,7 +43,7 @@ const makeItRain = () => {
 	}
 };
 
-export default function Home() {
+export default function Test0() {
 	// 🔊 소리 버튼 상태
 	const [soundOn, setSoundOn] = useState(true);
 
@@ -49,10 +51,14 @@ export default function Home() {
 	const { scrollYProgress } = useScroll();
 
 	// 🌧️ 비 애니메이션 (스크롤 내릴 때 등장)
-	const rainOpacity = useTransform(scrollYProgress, [0.1, 0.6, 1], [0, 1, 0]);
+	const rainOpacity = useTransform(scrollYProgress, [0.1, 1], [0, 1]);
 
 	// 🔊 소리 버튼 투명도 (스크롤할수록 사라짐)
-	const buttonOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+	const buttonOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
+
+	const pepeOpacity = useTransform(scrollYProgress, [0.7, 1], [0, 1]);
+
+	const navOpacity = useTransform(scrollYProgress, [0.7, 1], [0, 1]);
 
 	useEffect(() => {
 		makeItRain();
@@ -86,6 +92,14 @@ export default function Home() {
 			>
 				{soundOn ? "🔊" : "🔇"}
 			</motion.button>
+
+			{/* <motion.div style={{opacity: navOpacity}} className="fixed top-[10px] left-1/2 -translate-x-1/2">
+				<Navbar />
+			</motion.div> */}
+
+			<motion.div style={{ opacity: pepeOpacity }} className="fixed bottom-[10px] left-1/2 -translate-x-1/2">
+				<Image src="/fat_pepe.jpeg" alt="fat-pepe" width={200} height={200} />
+			</motion.div>
 		</div>
 	);
 }
