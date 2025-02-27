@@ -4,11 +4,11 @@
 	height: 310vh;
 	background: linear-gradient(
 		to bottom,
-		rgba(0, 0, 0, 1) 20%,
-		rgba(0, 68, 102, 1) 40%,
+		#000000 20%,
+		#004466 40%,
 		/* rgba(0, 20, 60, 1) 60%, */
-		rgba(119, 187, 221, 1) 70%,
-		rgba(255, 255, 255, 1) 100%
+		#77bbdd 70%,
+		#ffffff 100%
 	);
 	transition: background 0.5s ease-in-out;
 }

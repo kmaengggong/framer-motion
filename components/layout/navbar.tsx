@@ -20,8 +20,7 @@ const Navbar = () => {
 					<Link
 						href={link.href}
 						className={clsx(
-							"block px-3 py-2 hover:opacity-70 transition duration-300", ""
-							
+							"block px-3 py-2 hover:opacity-70 transition duration-300 ", pathname === link.href ? "text-[#77bbdd]" : "text-white"
 						)}
 					>
 						{link.name}
