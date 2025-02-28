@@ -14,7 +14,7 @@ const Navbar = () => {
 	];
 
 	return (
-		<nav className="flex flex-row gap-4">
+		<nav className="flex flex-row gap-4 opacity-90">
 			{links.map((link) => (
 				<div key={link.name} className="relative">
 					<Link
