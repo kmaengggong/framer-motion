@@ -41,8 +41,6 @@ const CharaCard = (props: CharaCardProps) => {
 				<div className="">
 					<HText level={2} color={props.textColor} className="text-right">{props.name}</HText>
 					<HText level={4} color={props.textColor} className="opacity-80">{props.description}</HText>
-					{/* <H4Text color={props.textColor} alignment="right">{props.name}</H4Text>
-					<H6Text color={props.textColor}>{props.description}</H6Text> */}
 				</div>
 				<div>
 					{props.links.map((link, index) => (
