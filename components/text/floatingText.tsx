@@ -1,12 +1,12 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 
-interface Text {
-	text: string;
+interface FloatingTextProps {
+	children: React.ReactNode;
 }
 
-const FloatingText = (text: Text) => {
+const FloatingText = ({ children }: FloatingTextProps) => {
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 50 }}
@@ -14,7 +14,7 @@ const FloatingText = (text: Text) => {
 			viewport={{ once: false }}
 			transition={{ ease: "easeInOut", duration: 1.5, y: { duration: 1 } }}
 		>
-			{text.text}
+			{children}
 		</motion.div>
 	);
 };

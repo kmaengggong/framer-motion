@@ -176,7 +176,7 @@ export default function HomePage() {
 	}, []);
 
 	const [buttonOpacityValue, setButtonOpacityValue] = useState<number>(1);
-	const [navOpacityValue, setNavOpacityValue] = useState<number>(1);
+	// const [navOpacityValue, setNavOpacityValue] = useState<number>(1);
 
 	useEffect(() => {
 		const unsubscribe = buttonOpacity.onChange((v: number) => {

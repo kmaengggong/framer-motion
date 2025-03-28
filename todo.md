@@ -27,10 +27,16 @@
 /chara: each chara, text and link.
 /guest: guestbook and some animated things.
 /stats: graph for loveline.
+/info: info about goods or events.  // 제일 나지막에 구현
 /about: simple self-produce page.
 /ccmbr: hidden page for ave mujica. with mutsumi.
 
+### !
+- navbar 약간 다이나믹 아일랜드 비슷하게
+
 ### TODO
+- repo 포팅
+- chara, / -> guest -> stats -> about -> // ccmbr -> // info
 - README 정리
 - TODO 정리
 - 메인 페이지부터 차례대로
