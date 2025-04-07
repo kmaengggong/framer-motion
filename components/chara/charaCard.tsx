@@ -3,8 +3,6 @@
 import { motion } from "motion/react";
 import CharaImage from "./charaImage";
 import HText from "../text/hText";
-import H4Text from "../text/h4Text";
-import H6Text from "../text/h6Text";
 import IconButton from "../button/iconButton";
 
 interface Link {
@@ -27,7 +25,7 @@ const CharaCard = (props: CharaCardProps) => {
 		<motion.div
 			initial={{ opacity: 0, y: 50 }}
 			whileInView={{ opacity: 1, y: 0 }}
-			viewport={{ once: false }}
+			viewport={{ once: true }}
 			transition={{
 				ease: "easeInOut",
 				duration: 1.5,

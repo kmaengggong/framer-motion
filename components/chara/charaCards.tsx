@@ -1,4 +1,3 @@
-import { color } from "chart.js/helpers";
 import CharaCard from "./charaCard";
 
 const cards = [

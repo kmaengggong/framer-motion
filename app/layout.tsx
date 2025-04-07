@@ -57,6 +57,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	const { scrollYProgress } = useScroll();
 	const pathname = usePathname();
 	const [navOpacityValue, setNavOpacityValue] = useState<number>(1);
+	const [navTranslateY, setNavTranslateY] = useState<number>(0);
+	const [lastScrollY, setLastScrollY] = useState<number>(0);
+
 	const navOpacity = pathname === "/"
 		? useTransform(scrollYProgress, [0.7, 0.9], [0, 1])
 		: useTransform(scrollYProgress, [1], [1]);
@@ -69,15 +72,40 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 		return () => {
 			unsubscribe();
 		};
-	}, [navOpacityValue]);
+	}, [navOpacity]);
+
+	useEffect(() => {
+		const handleScroll = () => {
+			const currentScrollY = window.scrollY;
+			if (pathname !== "/") {
+				if (currentScrollY > lastScrollY) {
+					// 아래로 스크롤 시 navbar 숨김
+					setNavOpacityValue(0);
+					setNavTranslateY(-50);
+				} else {
+					// 위로 스크롤 시 navbar 보이기
+					setNavOpacityValue(1);
+					setNavTranslateY(0);
+				}
+			}
+			setLastScrollY(currentScrollY);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, [lastScrollY, pathname]);
 
 	return (
 		<html lang="en">
-			<body className="overflow-x-hidden overflow-y-scroll scrollbar-hide">
+			<body className="overflow-x-hidden min-h-screen overflow-y-scroll scrollbar-hide bg-pink-300">
+				<div className="max-w-screen-mx">
 				<motion.div
 					style={{
-						opacity: navOpacity,
-						pointerEvents: navOpacityValue === 0 ? "none" : "auto",
+						opacity: navOpacityValue,
+						transform: `translate(-50%, ${navTranslateY}px)`,
+						transition: "opacity 0.3s ease, transform 0.3s ease",
 					}}
 					className="fixed top-[10px] left-1/2 -translate-x-1/2 z-50 bg-gray-800 rounded-lg"
 				>
@@ -85,6 +113,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				</motion.div>
 				<div className="relative z-10">{children}</div>
 				<Footer />
+				</div>
 			</body>
 		</html>
 	);
