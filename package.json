@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@vercel/postgres": "^0.10.0",
     "chart.js": "^4.4.8",
     "clsx": "^2.1.1",
     "framer-motion": "^12.1.0",
     "motion": "^12.4.7",
-    "next": "15.1.6",
+    "next": "^15.2.5",
+    "postgres": "^3.4.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "tailwind-scrollbar-hide": "^2.0.0"

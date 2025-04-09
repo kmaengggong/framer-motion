@@ -15,7 +15,6 @@ interface CharaCardProps {
 	src: string;
 	name: string;
 	color: string;
-	textColor: string;
 	description: string;
 	links: Link[];
 }
@@ -31,14 +30,13 @@ const CharaCard = (props: CharaCardProps) => {
 				duration: 1.5,
 				y: { duration: 1 },
 			}}
-			className={`rounded-md mb-12 p-4 flex`}
-			style={{ backgroundColor: props.color }}
+			className={`rounded-md mb-12 p-4 flex bg-tomori-color ${props.color}`}
 		>
 			<CharaImage src={props.src} />
 			<div className="ml-4 flex flex-col w-full justify-between">
 				<div className="">
-					<HText level={2} color={props.textColor} className="text-right">{props.name}</HText>
-					<HText level={4} color={props.textColor} className="opacity-80">{props.description}</HText>
+					<HText level={2} className="text-right">{props.name}</HText>
+					<HText level={4} className="opacity-80">{props.description}</HText>
 				</div>
 				<div>
 					{props.links.map((link, index) => (
@@ -47,7 +45,6 @@ const CharaCard = (props: CharaCardProps) => {
 								icon={link.icon}
 								text={link.text}
 								link={link.link}
-								color={props.textColor}
 							/>
 						</div>
 					))}

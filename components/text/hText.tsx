@@ -3,9 +3,9 @@ import { ReactNode } from "react";
 const HText: React.FC<{
 	level: 1 | 2 | 3 | 4 | 5 | 6;
 	children: ReactNode;
-	className?: string;
 	color?: string;
-}> = ({ level, children, className = "", color }) => {
+	className?: string;
+}> = ({ level, children, color = "black", className = "" }) => {
 	const baseStyles = "font-normal mb-1";
 
 	let sizeClass = "";
@@ -43,7 +43,7 @@ const HText: React.FC<{
 	return (
 		<p
 			className={`${baseStyles} ${sizeClass} ${fontWeightClass} ${className}`}
-			style={{ color: color }}
+			style={{color: color}}
 		>
 			{children}
 		</p>

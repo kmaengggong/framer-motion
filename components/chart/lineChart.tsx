@@ -1,66 +1,52 @@
 "use client";
 
-import { Chart } from "chart.js/auto";
 import { useEffect, useRef } from "react";
+import { Chart } from "chart.js/auto";
+import { Stats } from "@/app/lib/definitions";
 
-const LineChart = () => {
-	const canvasEl = useRef(null);
+const LineChart = ({ stats }: { stats: Stats[] }) => {
+	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	useEffect(() => {
-		if (canvasEl.current !== null) {
-			const ctx = canvasEl.current;
+		if (!canvasRef.current || stats.length === 0) return;
 
-			const labels = [1, 2, 3, 4, 5, 6, 7];
+		const ctx = canvasRef.current;
+		const labels = stats.map((s) => s.chara_pair);
+		const values = stats.map((s) => Number(s.stats_count));
 
-			const data = {
-				labels: labels,
-				datasets: [
-					{
-						label: "Line Chart",
-						data: [65, 59, 80, 81, 56, 55, 40],
-						fill: false,
-						backgroundColor: [
-							"rgb(227, 106, 131)",
-							"rgb(249, 209, 96)",
-							"rgb(123, 204, 148)",
-							"rgb(130, 211, 207)",
-							"rgb(111, 162, 247)",
-							"rgb(128, 89, 230)",
-							"rgb(80, 80, 80)",
-						],
-						borderColor: [
-							"rgb(227, 106, 131)",
-							"rgb(249, 209, 96)",
-							"rgb(123, 204, 148)",
-							"rgb(130, 211, 207)",
-							"rgb(111, 162, 247)",
-							"rgb(128, 89, 230)",
-							"rgb(80, 80, 80)",
-						],
-						tension: 0.1,
-					},
-				],
-			};
-
-			const myTest = new Chart(ctx, {
-				type: "bar",
-				data: data,
-				options: {
-					indexAxis: "y",
+		const data = {
+			labels: labels,
+			datasets: [
+				{
+					label: "Line Chart",
+					data: values,
+					fill: false,
+					backgroundColor: stats.map((s, i) => {
+						const gradient = ctx.getContext("2d")!.createLinearGradient(0, 0, 400, 0);
+						gradient.addColorStop(0, s.chara_a_color);
+						gradient.addColorStop(1, s.chara_b_color);
+						return gradient;
+					}),
+					borderColor: "rgba(0, 0, 0, 0)",
+					borderWidth: 0,
 				},
-			});
+			],
+		};
 
-			return function cleanup() {
-				myTest.destroy();
-			};
-		}
-	});
+		const chart = new Chart(ctx, {
+			type: "bar",
+			data: data,
+			options: {
+				indexAxis: "y",
+			},
+		});
 
-	return (
-		<>
-			<canvas ref={canvasEl} />
-		</>
-	);
+		return function cleanup() {
+			chart.destroy();
+		};
+	}, [stats]);
+
+	return <canvas ref={canvasRef} />;
 };
 
 export default LineChart;
