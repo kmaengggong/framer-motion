@@ -2,9 +2,9 @@
 
 import { useEffect, useRef } from "react";
 import { Chart } from "chart.js/auto";
-import { Stats } from "@/app/lib/definitions";
+import { StatsResult } from "@/app/lib/definitions";
 
-const LineChart = ({ stats }: { stats: Stats[] }) => {
+const LineChart = ({ stats }: { stats: StatsResult[] }) => {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	useEffect(() => {
@@ -18,17 +18,21 @@ const LineChart = ({ stats }: { stats: Stats[] }) => {
 			labels: labels,
 			datasets: [
 				{
-					label: "Line Chart",
+					label: "Votes",
 					data: values,
-					fill: false,
 					backgroundColor: stats.map((s, i) => {
-						const gradient = ctx.getContext("2d")!.createLinearGradient(0, 0, 400, 0);
+						const gradient = ctx
+							.getContext("2d")!
+							.createLinearGradient(0, 0, 400, 0);
 						gradient.addColorStop(0, s.chara_a_color);
 						gradient.addColorStop(1, s.chara_b_color);
 						return gradient;
 					}),
 					borderColor: "rgba(0, 0, 0, 0)",
 					borderWidth: 0,
+					// barThickness: 20,
+					// categoryPercentage: 1.0,
+					barPercentage: 0.7,
 				},
 			],
 		};
@@ -38,6 +42,22 @@ const LineChart = ({ stats }: { stats: Stats[] }) => {
 			data: data,
 			options: {
 				indexAxis: "y",
+				scales: {
+					x: {
+						ticks: {
+							font: {
+								size: 14,
+							},
+						},
+					},
+					y: {
+						ticks: {
+							font: {
+								size: 14,
+							},
+						},
+					},
+				},
 			},
 		});
 
@@ -46,7 +66,13 @@ const LineChart = ({ stats }: { stats: Stats[] }) => {
 		};
 	}, [stats]);
 
-	return <canvas ref={canvasRef} />;
+	return (
+		<canvas
+			ref={canvasRef}
+			height={stats.length * 25}
+			className="bg-[rgba(255,255,255,0.5)]"
+		/>
+	);
 };
 
 export default LineChart;

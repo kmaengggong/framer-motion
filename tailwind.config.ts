@@ -19,15 +19,22 @@ export default {
 				"soyo-color": "#FFDD88",
 				"taki-color": "#7777AA",
 
-				"mujica-color": "",
-				"uika-color": "",
-				"sakiko-color": "",
-				"umiri-color": "",
-				"mutsumi-color": "",
+				"mujica-color": "#BB9955",
+				"uika-color": "#779977",
+				"sakiko-color": "#335566",
+				"umiri-color": "#AA4477",
+				"mutsumi-color": "#7799CC",
 			},
 			fontFamily: {
 				main: ['"'],
-			}
+			},
+			screens: {
+				'xs': '400px',
+				'sm': '640px',
+				'md': '768px',
+				'lg': '1024px',
+				'xl': '1280px',
+			},
 		},
 	},
 	plugins: [require("tailwind-scrollbar-hide")],

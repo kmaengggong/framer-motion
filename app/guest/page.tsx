@@ -1,12 +1,15 @@
 import NoteCards from "@/components/guest/noteCards";
+import { fetchGuests } from "../lib/data";
 
-export default function GuestPage() {
+export default async function GuestPage() {
+	const guests = await fetchGuests();
+
 	return (
 		<div className="relative min-h-screen px-4 py-20 bg-white">
 			<div className="absolute inset-0 h-[100vh] bg-gradient-to-b from-mygo-color to-white pointer-events-none"></div>
 
 			<div className="relative">
-				<NoteCards />
+				<NoteCards guests={guests} />
 
 				<div className="fixed grid grid-cols-6 gap-2 w-full h-[32px] px-3 bottom-[16px] left-1/2 -translate-x-1/2 z-50">
 					<input

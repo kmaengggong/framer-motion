@@ -1,9 +1,18 @@
 import { sql } from "@vercel/postgres";
-import { Guest, Stats } from "./definitions";
+import { Chara, Guest, StatsResult } from "./definitions";
 
-// export async function fetchCharas() {
+export async function fetchCharas() {
+	try {
+		const data = await sql<Chara>`
+			SELECT * FROM CHARA
+		`;
 
-// };
+		return data.rows;
+	} catch (error) {
+		console.error("Database Error: ", error);
+		throw new Error("Failed to fetch chara data");
+	}
+}
 
 export async function fetchGuests() {
 	try {
@@ -27,12 +36,12 @@ export async function fetchGuests() {
 export async function fetchStats() {
 	try {
 		// TODO: 나중에 created_at 가지고 시기별이랑 order by도 추가
-		const data = await sql<Stats>`
+		const data = await sql<StatsResult>`
 			SELECT
-				CONCAT(LEFT(C.EN_NAME, 4), LEFT(C2.EN_NAME, 4)) AS CHARA_PAIR,
+				CONCAT(C.EN_SHORT_NAME, C2.EN_SHORT_NAME) AS CHARA_PAIR,
 				C.COLOR AS CHARA_A_COLOR,
 				C2.COLOR AS CHARA_B_COLOR,
-				COUNT(S.STATS_NAME) AS STATS_COUNT
+				COUNT(S.STATS_ID) AS STATS_COUNT
 			FROM
 				STATS AS S
 				INNER JOIN CHARA AS C ON S.CHARA_A_ID = C.CHARA_ID
@@ -40,13 +49,14 @@ export async function fetchStats() {
 			GROUP BY
 				S.CHARA_A_ID,
 				S.CHARA_B_ID,
-				C.EN_NAME,
-				C2.EN_NAME,
+				C.EN_SHORT_NAME,
+				C2.EN_SHORT_NAME,
 				C.COLOR,
 				C2.COLOR
 			ORDER BY
 				STATS_COUNT DESC;
 		`;
+
 		return data.rows;
 	} catch (error) {
 		console.error("Database Error: ", error);

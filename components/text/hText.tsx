@@ -13,27 +13,27 @@ const HText: React.FC<{
 
 	switch (level) {
 		case 1:
-			sizeClass = "text-5xl max-sm:text-3xl";
-			fontWeightClass = "font-extrabold";
-			break;
-		case 2:
-			sizeClass = "text-4xl max-sm:text-2xl";
+			sizeClass = "text-3xl max-sm:text-2xl";
 			fontWeightClass = "font-bold";
 			break;
+		case 2:
+			sizeClass = "text-2xl max-sm:text-xl";
+			fontWeightClass = "font-semibold";
+			break;
 		case 3:
-			sizeClass = "text-3xl max-sm:text-xl";
+			sizeClass = "text-xl max-sm:text-lg";
 			fontWeightClass = "font-semibold";
 			break;
 		case 4:
-			sizeClass = "text-2xl max-sm:text-lg";
-			fontWeightClass = "font-semibold";
+			sizeClass = "text-lg max-sm:text-base";
+			fontWeightClass = "font-medium";
 			break;
 		case 5:
-			sizeClass = "text-xl max-sm:text-base";
+			sizeClass = "text-base max-sm:text-sm";
 			fontWeightClass = "font-medium";
 			break;
 		case 6:
-			sizeClass = "text-lg max-sm:text-sm";
+			sizeClass = "text-sm max-sm:text-xs";
 			fontWeightClass = "font-normal";
 			break;
 		default:

@@ -12,6 +12,9 @@ async function seedChara() {
 			KR_NAME VARCHAR(10) NOT NULL,
 			JP_NAME VARCHAR(10) NOT NULL,
 			EN_NAME VARCHAR(20) NOT NULL,
+			KR_SHORT_NAME VARCHAR(10) NOT NULL,
+			JP_SHORT_NAME VARCHAR(10) NOT NULL,
+			EN_SHORT_NAME VARCHAR(10) NOT NULL,
 			COLOR VARCHAR(7),
 			CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 			UPDATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -26,8 +29,10 @@ async function seedChara() {
 	const insertedChara = await Promise.all(
 		charas.map(async (chara) => {
 			return client.sql`
-				INSERT INTO CHARA (KR_NAME, JP_NAME, EN_NAME, COLOR)
-				VALUES (${chara.kr_name}, ${chara.jp_name}, ${chara.en_name}, ${chara.color})
+				INSERT INTO CHARA
+					(KR_NAME, JP_NAME, EN_NAME, KR_SHORT_NAME, JP_SHORT_NAME, EN_SHORT_NAME, COLOR)
+				VALUES
+					(${chara.kr_name}, ${chara.jp_name}, ${chara.en_name}, ${chara.kr_short_name}, ${chara.jp_short_name}, ${chara.en_short_name}, ${chara.color})
 			`;
 		})
 	);
@@ -63,7 +68,7 @@ async function seedGuest() {
 	const resultChara = await client.sql`SELECT * FROM CHARA`;
 	const charas = resultChara.rows;
 
-	if (charas.length < 5 || charas.length !== guests.length) return;
+	if (charas.length < 5) return;
 
 	const insertedGuest = await Promise.all(
 		guests.map(async (guest, i) => {
@@ -82,7 +87,7 @@ async function seedStats() {
 
 	await client.sql`
 		CREATE TABLE IF NOT EXISTS STATS (
-			STATS_NAME UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+			STATS_ID UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 			CHARA_A_ID UUID NOT NULL,
 			CHARA_B_ID UUID NOT NULL,
 			IP_ADDR INET NOT NULL,
@@ -103,7 +108,7 @@ async function seedStats() {
 	const resultChara = await client.sql`SELECT * FROM CHARA`;
 	const charas = resultChara.rows;
 
-	if (charas.length < 5 || charas.length !== stats.length) return;
+	if (charas.length < 5) return;
 
 	const insertedStats = await Promise.all(
 		stats.map(async (stat) => {
@@ -125,7 +130,7 @@ async function seedNotes() {
 	// TODO: VIEWS 추가?
 	await client.sql`
 		CREATE TABLE IF NOT EXISTS NOTES (
-			NOTES_NAME UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+			NOTES_ID UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
 			TITLE VARCHAR(255) NOT NULL,
 			CONTENT TEXT NOT NULL,
 			CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

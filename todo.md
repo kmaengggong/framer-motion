@@ -35,12 +35,23 @@
 - navbar 약간 다이나믹 아일랜드 비슷하게?
 
 ### TODO
-- repo 포팅
-- chara, / -> guest -> stats -> about -> // ccmbr -> // info
-- README 정리
-- TODO 정리
-- 메인 페이지부터 차례대로
-- 각 페이지의 핵심 기능 개발
-- 디자인
-- 처음부터 너무 설계하지 말고 일단 코딩부터
-- 리팩토링
+- index
+	- 음악 재생
+	- 이미지 대체
+	+ 글 필요하면 추가
+- chara
+	+ DB 연결
+	- 디자인 수정
+- notes
+	- 디자인
+	- 크롤링
+- stats
+	- 투표
+	- 디자인 수정
+- guest
+- about
+- others
+	- repo 포팅
+	- README 정리
+	- 언어(KR, EN, JP)
+	- 리팩토링

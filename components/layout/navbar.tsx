@@ -16,13 +16,13 @@ const Navbar = () => {
 	];
 
 	return (
-		<nav className="flex flex-row px-3 py-2 content-evenly gap-2 opacity-90">
+		<nav className="flex flex-row px-2 max-sm:px-1 py-2 opacity-90">
 			{links.map((link) => (
 				<div key={link.name} className="relative">
 					<Link
 						href={link.href}
 						className={clsx(
-							"block px-1 hover:opacity-70 transition duration-300 text-md max-sm:text-sm ", pathname === link.href ? "text-mygo-color" : "text-white"
+							"block hover:opacity-70 px-3 max-sm:px-2 max-xs:px-1 transition duration-300 text-base max-sm:text-sm font-semibold ", pathname === link.href ? "text-mygo-color" : "text-white"
 						)}
 					>
 						{link.name}
