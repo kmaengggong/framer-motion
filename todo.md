@@ -49,6 +49,8 @@
 	- 투표
 	- 디자인 수정
 - guest
+	- 카드 디자인
+	- 카드 선택 시 hero 효과 추가
 - about
 - others
 	- repo 포팅

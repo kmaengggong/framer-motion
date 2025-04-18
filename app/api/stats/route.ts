@@ -5,49 +5,141 @@ import { StatsResult } from "@/app/lib/definitions";
 
 export async function GET(
 	req: NextRequest,
-	{ params }: { params: { language: string; order: string } }
+	{ params }: { params: { language?: string; order?: string } }
 ) {
 	try {
-		const language = params.language;
-		const order = params.order;
+		const language = params?.language ?? "EN";
+		const order = params?.order ?? "DESC";
 
-		let charaPairSelect = "";
-		let groupByNames = "";
+		let data;
 
 		if (language === "EN") {
-			charaPairSelect = 'CONCAT(C.EN_SHORT_NAME, " / ", C2.EN_SHORT_NAME)';
-			groupByNames = "C.EN_SHORT_NAME, C2.EN_SHORT_NAME";
+			if (order === "ASC") {
+				data = await sql<StatsResult>`
+					SELECT
+						CONCAT(C.EN_SHORT_NAME, C2.EN_SHORT_NAME) AS CHARA_PAIR,
+						C.COLOR AS CHARA_A_COLOR,
+						C2.COLOR AS CHARA_B_COLOR,
+						COUNT(S.STATS_ID) AS STATS_COUNT
+					FROM
+						STATS AS S
+						INNER JOIN CHARA AS C ON S.CHARA_A_ID = C.CHARA_ID
+						INNER JOIN CHARA AS C2 ON S.CHARA_B_ID = C2.CHARA_ID
+					GROUP BY
+						S.CHARA_A_ID,
+						S.CHARA_B_ID,
+						C.EN_SHORT_NAME,
+						C2.EN_SHORT_NAME,
+						C.COLOR,
+						C2.COLOR
+					ORDER BY STATS_COUNT
+				`;
+			} else {
+				data = await sql<StatsResult>`
+					SELECT
+						CONCAT(C.EN_SHORT_NAME, C2.EN_SHORT_NAME) AS CHARA_PAIR,
+						C.COLOR AS CHARA_A_COLOR,
+						C2.COLOR AS CHARA_B_COLOR,
+						COUNT(S.STATS_ID) AS STATS_COUNT
+					FROM
+						STATS AS S
+						INNER JOIN CHARA AS C ON S.CHARA_A_ID = C.CHARA_ID
+						INNER JOIN CHARA AS C2 ON S.CHARA_B_ID = C2.CHARA_ID
+					GROUP BY
+						S.CHARA_A_ID,
+						S.CHARA_B_ID,
+						C.EN_SHORT_NAME,
+						C2.EN_SHORT_NAME,
+						C.COLOR,
+						C2.COLOR
+					ORDER BY STATS_COUNT DESC
+				`;
+			}
 		} else if (language === "JP") {
-			charaPairSelect = 'CONCAT(C.JP_SHORT_NAME, " / ", C2.JP_SHORT_NAME)';
-			groupByNames = "C.JP_SHORT_NAME, C2.JP_SHORT_NAME";
+			if (order === "ASC") {
+				data = await sql<StatsResult>`
+					SELECT
+						CONCAT(C.JP_SHORT_NAME, C2.JP_SHORT_NAME) AS CHARA_PAIR,
+						C.COLOR AS CHARA_A_COLOR,
+						C2.COLOR AS CHARA_B_COLOR,
+						COUNT(S.STATS_ID) AS STATS_COUNT
+					FROM
+						STATS AS S
+						INNER JOIN CHARA AS C ON S.CHARA_A_ID = C.CHARA_ID
+						INNER JOIN CHARA AS C2 ON S.CHARA_B_ID = C2.CHARA_ID
+					GROUP BY
+						S.CHARA_A_ID,
+						S.CHARA_B_ID,
+						C.JP_SHORT_NAME,
+						C2.JP_SHORT_NAME,
+						C.COLOR,
+						C2.COLOR
+					ORDER BY STATS_COUNT
+				`;
+			} else {
+				data = await sql<StatsResult>`
+					SELECT
+						CONCAT(C.JP_SHORT_NAME, C2.JP_SHORT_NAME) AS CHARA_PAIR,
+						C.COLOR AS CHARA_A_COLOR,
+						C2.COLOR AS CHARA_B_COLOR,
+						COUNT(S.STATS_ID) AS STATS_COUNT
+					FROM
+						STATS AS S
+						INNER JOIN CHARA AS C ON S.CHARA_A_ID = C.CHARA_ID
+						INNER JOIN CHARA AS C2 ON S.CHARA_B_ID = C2.CHARA_ID
+					GROUP BY
+						S.CHARA_A_ID,
+						S.CHARA_B_ID,
+						C.JP_SHORT_NAME,
+						C2.JP_SHORT_NAME,
+						C.COLOR,
+						C2.COLOR
+					ORDER BY STATS_COUNT DESC
+				`;
+			}
 		} else {
-			charaPairSelect = 'CONCAT(C.KR_SHORT_NAME, " / ", C2.KR_SHORT_NAME)';
-			groupByNames = "C.KR_SHORT_NAME, C2.KR_SHORT_NAME";
+			if (order === "ASC") {
+				data = await sql<StatsResult>`
+					SELECT
+						CONCAT(C.KR_SHORT_NAME, C2.KR_SHORT_NAME) AS CHARA_PAIR,
+						C.COLOR AS CHARA_A_COLOR,
+						C2.COLOR AS CHARA_B_COLOR,
+						COUNT(S.STATS_ID) AS STATS_COUNT
+					FROM
+						STATS AS S
+						INNER JOIN CHARA AS C ON S.CHARA_A_ID = C.CHARA_ID
+						INNER JOIN CHARA AS C2 ON S.CHARA_B_ID = C2.CHARA_ID
+					GROUP BY
+						S.CHARA_A_ID,
+						S.CHARA_B_ID,
+						C.KR_SHORT_NAME,
+						C2.KR_SHORT_NAME,
+						C.COLOR,
+						C2.COLOR
+					ORDER BY STATS_COUNT
+				`;
+			} else {
+				data = await sql<StatsResult>`
+					SELECT
+						CONCAT(C.KR_SHORT_NAME, C2.KR_SHORT_NAME) AS CHARA_PAIR,
+						C.COLOR AS CHARA_A_COLOR,
+						C2.COLOR AS CHARA_B_COLOR,
+						COUNT(S.STATS_ID) AS STATS_COUNT
+					FROM
+						STATS AS S
+						INNER JOIN CHARA AS C ON S.CHARA_A_ID = C.CHARA_ID
+						INNER JOIN CHARA AS C2 ON S.CHARA_B_ID = C2.CHARA_ID
+					GROUP BY
+						S.CHARA_A_ID,
+						S.CHARA_B_ID,
+						C.KR_SHORT_NAME,
+						C2.KR_SHORT_NAME,
+						C.COLOR,
+						C2.COLOR
+					ORDER BY STATS_COUNT DESC
+				`;
+			}
 		}
-
-		const orderByClause = order === "ASC" ? "STATS_COUNT" : "STATS_COUNT DESC";
-
-		const query = `
-			SELECT
-				${charaPairSelect} AS CHARA_PAIR,
-				C.COLOR AS CHARA_A_COLOR,
-				C2.COLOR AS CHARA_B_COLOR,
-				COUNT(S.STATS_ID) AS STATS_COUNT
-			FROM
-				STATS AS S
-				INNER JOIN CHARA AS C ON S.CHARA_A_ID = C.CHARA_ID
-				INNER JOIN CHARA AS C2 ON S.CHARA_B_ID = C2.CHARA_ID
-			GROUP BY
-				S.CHARA_A_ID,
-				S.CHARA_B_ID,
-				${groupByNames},
-				C.COLOR,
-				C2.COLOR
-			ORDER BY
-				${orderByClause}
-		`;
-
-		const data = await sql<StatsResult>`${query}`;
 
 		return NextResponse.json(data.rows);
 	} catch (error) {

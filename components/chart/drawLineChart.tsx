@@ -1,10 +1,10 @@
-import { fetchStats } from "@/app/lib/data";
-import LineChart from "./lineChart";
+// import { fetchStats } from "@/app/lib/data";
+// import LineChart from "./lineChart";
 
-const DrawLineChart = async () => {
-	const stats = await fetchStats();
+// const DrawLineChart = async () => {
+// 	const stats = await fetchStats();
 
-	return <LineChart stats={stats} />;
-};
+// 	return <LineChart stats={stats} />;
+// };
 
-export default DrawLineChart;
+// export default DrawLineChart;

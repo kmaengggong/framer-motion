@@ -1,14 +1,32 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Chart } from "chart.js/auto";
 import { StatsResult } from "@/app/lib/definitions";
 
-const LineChart = ({ stats }: { stats: StatsResult[] }) => {
+const LineChart = () => {
+	const [stats, setStats] = useState<StatsResult[] | null>(null);
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 
 	useEffect(() => {
-		if (!canvasRef.current || stats.length === 0) return;
+		const fetchData = async () => {
+			try {
+				const res = await fetch("/api/stats", { method: "GET" });
+				if (res.ok) {
+					const json = await res.json();
+					setStats(json);
+				} else {
+					alert("Failed to fetch stats");
+				}
+			} catch (error) {
+				console.error("Fetch error: ", error);
+			}
+		};
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		if (!stats || !canvasRef.current || stats.length === 0) return;
 
 		const ctx = canvasRef.current;
 		const labels = stats.map((s) => s.chara_pair);
@@ -67,11 +85,15 @@ const LineChart = ({ stats }: { stats: StatsResult[] }) => {
 	}, [stats]);
 
 	return (
-		<canvas
-			ref={canvasRef}
-			height={stats.length * 25}
-			className="bg-[rgba(255,255,255,0.5)]"
-		/>
+		<>
+			{stats && (
+				<canvas
+					ref={canvasRef}
+					height={stats.length * 25}
+					className="bg-[rgba(255,255,255,0.5)]"
+				/>
+			)}
+		</>
 	);
 };
 

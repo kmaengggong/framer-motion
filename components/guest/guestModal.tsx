@@ -1,6 +1,6 @@
 "use client";
 
-const NoteModal = ({
+const GuestModal = ({
 	children,
 	onClose,
 }: {
@@ -28,4 +28,4 @@ const NoteModal = ({
 	);
 };
 
-export default NoteModal;
+export default GuestModal;

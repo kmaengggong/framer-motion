@@ -1,6 +1,7 @@
-import DrawLineChart from "@/components/chart/drawLineChart";
+// import DrawLineChart from "@/components/chart/drawLineChart";
 import CharaSelects from "@/components/chara/charaSelects";
 import TitleText from "@/components/text/titleText";
+import LineChart from "@/components/chart/lineChart";
 
 export default function StatsPage() {
 	return (
@@ -8,7 +9,8 @@ export default function StatsPage() {
 			<div className="absolute inset-0 h-[100vh] bg-gradient-to-b from-mygo-color to-white pointer-events-none"></div>
 			<div className="relative">
 				<TitleText className="text-center">Stats</TitleText>
-				<DrawLineChart />
+				{/* <DrawLineChart /> */}
+				<LineChart />
 				<div className="my-10"></div>
 				<TitleText className="text-center">Votes</TitleText>
 				<CharaSelects />
