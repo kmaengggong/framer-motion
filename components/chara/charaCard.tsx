@@ -11,15 +11,15 @@ interface Link {
 	link: string;
 }
 
-interface CharaCardProps {
-	src: string;
+interface Card {
+	id: string;
 	name: string;
 	color: string;
 	description: string;
 	links: Link[];
 }
 
-const CharaCard = (props: CharaCardProps) => {
+const CharaCard = ({card}: {card: Card}) => {
 	return (
 		<motion.div
 			initial={{ opacity: 0, y: 50 }}
@@ -30,16 +30,16 @@ const CharaCard = (props: CharaCardProps) => {
 				duration: 1.5,
 				y: { duration: 1 },
 			}}
-			className={`rounded-md mb-12 p-4 flex bg-tomori-color ${props.color}`}
+			className={`rounded-md mb-12 p-4 flex bg-tomori-color ${card.color}`}
 		>
-			<CharaImage src={props.src} />
+			<CharaImage src={card.id} />
 			<div className="ml-4 flex flex-col w-full justify-between">
 				<div className="">
-					<HText level={2} className="text-right">{props.name}</HText>
-					<HText level={4} className="opacity-80">{props.description}</HText>
+					<HText level={2} className="text-right">{card.name}</HText>
+					<HText level={4} className="opacity-80">{card.description}</HText>
 				</div>
 				<div>
-					{props.links.map((link, index) => (
+					{card.links.map((link, index) => (
 						<div className="pb-2" key={index}>
 							<IconButton
 								icon={link.icon}

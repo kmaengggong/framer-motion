@@ -234,8 +234,8 @@ export default function HomePage() {
 
 			{/* 배경 그라데이션을 위한 섹션 */}
 			<div className="h-[100vh] bg-gradient-to-b from-black to-[#004466]"></div>
-			<div className="h-[200vh] bg-gradient-to-b from-[#004466] to-[#77bbdd]"></div>
-			<div className="h-[100vh] bg-gradient-to-b from-[#77bbdd] to-white"></div>
+			<div className="h-[200vh] bg-gradient-to-b from-[#004466] to-mygo-color"></div>
+			<div className="h-[100vh] bg-gradient-to-b from-mygo-color to-white"></div>
 		</div>
 	);
 }

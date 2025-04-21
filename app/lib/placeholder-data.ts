@@ -1,97 +1,74 @@
 const charas = [
+	{ color: "#77BBDD",  },
+	{ color: "#FF8899" },
+	{ color: "#77DD77" },
+	{ color: "#FFDD88" },
+	{ color: "#7777AA" },
+	{ color: "#BB9955" },
+	{ color: "#779977" },
+	{ color: "#335566" },
+	{ color: "#AA4477" },
+	{ color: "#7799CC" },
+];
+
+const chara_trans = [
 	{
-		kr_name: "",
-		jp_name: "",
-		en_name: "Tomori Takamatsu",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Tomo",
-		color: "#77BBDD",
+		lang: "EN",
+		full_name: "Tomori Takamatsu",
+		short_name: "Tomo",
 	},
 	{
-		kr_name: "",
-		jp_name: "",
-		en_name: "Anon Chihaya",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Anon",
-		color: "#FF8899",
+		lang: "EN",
+		full_name: "Anon Chihaya",
+		short_name: "Anon",
 	},
 	{
-		kr_name: "",
-		jp_name: "",
-		en_name: "Rana Kaname",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Rana",
-		color: "#77DD77",
+		lang: "EN",
+		full_name: "Rana Kaname",
+		short_name: "Rana",
 	},
 	{
-		kr_name: "",
-		jp_name: "",
-		en_name: "Soyo Nagasaki",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Soyo",
-		color: "#FFDD88",
+		lang: "EN",
+		full_name: "Soyo Nagasaki",
+		short_name: "Soyo",
 	},
 	{
-		chara_id: "",
-		kr_name: "",
-		jp_name: "",
-		en_name: "Taki Shiina",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Taki",
-		color: "#7777AA",
+		lang: "EN",
+		full_name: "Taki Shiina",
+		short_name: "Taki",
 	},
 	{
-		kr_name: "",
-		jp_name: "",
-		en_name: "Uika Misumi",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Ui",
-		color: "#BB9955",
+		lang: "EN",
+		full_name: "Uika Misumi",
+		short_name: "Ui",
 	},
 	{
-		kr_name: "",
-		jp_name: "",
-		en_name: "Mutsumi Wakaba",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Mutsu",
-		color: "#779977",
+		lang: "EN",
+		full_name: "Mutsumi Wakaba",
+		short_name: "Mutsu",
 	},
 	{
-		kr_name: "",
-		jp_name: "",
-		en_name: "Umiri Yahata",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Umi",
-		color: "#335566",
+		lang: "EN",
+		full_name: "Umiri Yahata",
+		short_name: "Umi",
 	},
 	{
-		kr_name: "",
-		jp_name: "",
-		en_name: "Nyamu Yūtenji",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Nyamu",
-		color: "#AA4477",
+		lang: "EN",
+		full_name: "Nyamu Yūtenji",
+		short_name: "Nyamu",
 	},
 	{
-		chara_id: "",
-		kr_name: "",
-		jp_name: "",
-		en_name: "Sakiko Togawa",
-		kr_short_name: "",
-		jp_short_name: "",
-		en_short_name: "Saki",
-		color: "#7799CC",
+		lang: "EN",
+		full_name: "Sakiko Togawa",
+		short_name: "Saki",
 	},
 ];
+
+const chara_links = [
+	{
+		
+	}
+]
 
 const guests = [
 	{
@@ -164,4 +141,4 @@ const notes = [
 	},
 ];
 
-export { charas, guests, stats, notes };
+export { charas, chara_trans, guests, stats, notes };
